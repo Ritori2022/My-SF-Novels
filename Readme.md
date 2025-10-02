@@ -1,4 +1,4 @@
-![Logo](./封面.ipg)
+![Cover](./cover.ipg)
 # 漩涡与萤火 
 ## Vortex and Firefly 
 
