@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>镜中的我不是我 - 封面设计</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Songti SC', 'STSong', serif;
+            overflow: hidden;
+        }
+        
+        .book-cover {
+            width: 600px;
+            height: 850px;
+            position: relative;
+            background: linear-gradient(180deg, #2d1b4e 0%, #1a0f2e 100%);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 0 100px rgba(138, 43, 226, 0.1);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            overflow: hidden;
+        }
+        
+        /* 水面波纹背景 */
+        .water-ripple {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            background: 
+                radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(138, 43, 226, 0.3) 41%, transparent 42%),
+                radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(138, 43, 226, 0.2) 56%, transparent 57%),
+                radial-gradient(ellipse at 50% 50%, transparent 70%, rgba(138, 43, 226, 0.1) 71%, transparent 72%);
+            animation: ripple-pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes ripple-pulse {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.25; transform: scale(1.05); }
+        }
+        
+        /* 中央镜像分割线 */
+        .mirror-line {
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.8) 20%,
+                rgba(138, 43, 226, 0.9) 50%,
+                rgba(255, 255, 255, 0.8) 80%,
+                transparent 100%
+            );
+            box-shadow: 
+                0 0 20px rgba(138, 43, 226, 0.8),
+                0 0 40px rgba(138, 43, 226, 0.4);
+            animation: line-glow 3s ease-in-out infinite;
+            z-index: 10;
+        }
+        
+        @keyframes line-glow {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; box-shadow: 0 0 30px rgba(138, 43, 226, 1), 0 0 60px rgba(138, 43, 226, 0.6); }
+        }
+        
+        /* 左侧独角兽剪影 */
+        .silhouette {
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 60%;
+            transform: translateY(-50%);
+        }
+        
+        .silhouette-left {
+            left: 5%;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+        
+        .silhouette-right {
+            right: 5%;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            transform: translateY(-50%) scaleX(-1);
+        }
+        
+        /* SVG独角兽 */
+        .unicorn-shape {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: rgba(138, 43, 226, 0.6);
+            stroke-width: 2;
+            filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.8));
+        }
+        
+        .silhouette-left .unicorn-shape {
+            animation: fade-left 6s ease-in-out infinite;
+        }
+        
+        .silhouette-right .unicorn-shape {
+            animation: fade-right 6s ease-in-out infinite;
+            stroke: rgba(255, 107, 107, 0.6);
+            filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.8));
+        }
+        
+        @keyframes fade-left {
+            0%, 100% { opacity: 0.8; stroke-width: 2; }
+            50% { opacity: 0.4; stroke-width: 1.5; }
+        }
+        
+        @keyframes fade-right {
+            0%, 100% { opacity: 0.4; stroke-width: 1.5; }
+            50% { opacity: 0.8; stroke-width: 2; }
+        }
+        
+        /* 魔法频率波形 */
+        .frequency-waves {
+            position: absolute;
+            width: 100%;
+            height: 80px;
+            top: 35%;
+            left: 0;
+            opacity: 0.6;
+        }
+        
+        .wave {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .wave-left {
+            left: 0;
+            width: 48%;
+        }
+        
+        .wave-right {
+            right: 0;
+            width: 48%;
+        }
+        
+        .wave-line {
+            stroke-width: 2;
+            fill: none;
+            stroke: rgba(138, 43, 226, 0.8);
+            animation: wave-pulse 2s ease-in-out infinite;
+        }
+        
+        .wave-right .wave-line {
+            stroke: rgba(255, 107, 107, 0.6);
+            animation: wave-decay 2s ease-in-out infinite;
+        }
+        
+        @keyframes wave-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        @keyframes wave-decay {
+            0% { opacity: 0.8; }
+            100% { opacity: 0.2; }
+        }
+        
+        /* 标题 */
+        .title-container {
+            position: absolute;
+            width: 100%;
+            top: 12%;
+            text-align: center;
+            z-index: 20;
+        }
+        
+        .main-title {
+            font-size: 52px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            color: #fff;
+            text-shadow: 
+                0 0 20px rgba(138, 43, 226, 0.8),
+                0 0 40px rgba(138, 43, 226, 0.4),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 15px;
+            animation: title-flicker 4s ease-in-out infinite;
+        }
+        
+        .main-title .mirror {
+            display: inline-block;
+            animation: mirror-split 3s ease-in-out infinite;
+        }
+        
+        @keyframes title-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+        
+        @keyframes mirror-split {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(3px); }
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.7);
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+        
+        /* 底部描述 */
+        .description {
+            position: absolute;
+            bottom: 80px;
+            width: 90%;
+            left: 5%;
+            text-align: center;
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            z-index: 20;
+        }
+        
+        .question {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+            letter-spacing: 2px;
+        }
+        
+        /* 装饰性魔法粒子 */
+        .magic-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(138, 43, 226, 0.8);
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
+            animation: float-particle 8s ease-in-out infinite;
+        }
+        
+        @keyframes float-particle {
+            0%, 100% { 
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-400px) translateX(20px);
+                opacity: 0;
+            }
+        }
+        
+        .particle-1 { left: 20%; bottom: -10px; animation-delay: 0s; }
+        .particle-2 { left: 40%; bottom: -10px; animation-delay: 2s; }
+        .particle-3 { left: 60%; bottom: -10px; animation-delay: 4s; }
+        .particle-4 { left: 80%; bottom: -10px; animation-delay: 6s; }
+        .particle-5 { left: 30%; bottom: -10px; animation-delay: 1s; }
+        .particle-6 { left: 70%; bottom: -10px; animation-delay: 5s; }
+        
+        /* 魔法阵装饰 */
+        .magic-circle {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 50%;
+            animation: rotate-circle 20s linear infinite;
+        }
+        
+        .magic-circle::before,
+        .magic-circle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(138, 43, 226, 0.2);
+            border-radius: 50%;
+        }
+        
+        .magic-circle::before {
+            width: 80%;
+            height: 80%;
+        }
+        
+        .magic-circle::after {
+            width: 60%;
+            height: 60%;
+        }
+        
+        @keyframes rotate-circle {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="book-cover">
+        <!-- 背景水波纹 -->
+        <div class="water-ripple"></div>
+        
+        <!-- 中央镜像分割线 -->
+        <div class="mirror-line"></div>
+        
+        <!-- 左侧剪影 -->
+        <div class="silhouette silhouette-left">
+            <svg viewBox="0 0 200 300" class="unicorn-shape">
+                <path d="M 100 20 
+                         Q 90 30, 85 50
+                         L 80 80
+                         Q 75 100, 70 120
+                         L 65 150
+                         Q 60 180, 65 200
+                         L 70 230
+                         Q 75 260, 80 280
+                         M 100 20
+                         Q 110 30, 115 50
+                         L 120 80
+                         Q 125 100, 130 120
+                         L 135 150
+                         Q 140 180, 135 200
+                         L 130 230
+                         Q 125 260, 120 280
+                         M 100 20
+                         L 105 5
+                         M 95 40
+                         Q 85 42, 80 45
+                         M 105 40
+                         Q 115 42, 120 45" 
+                      stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <!-- 右侧剪影（镜像） -->
+        <div class="silhouette silhouette-right">
+            <svg viewBox="0 0 200 300" class="unicorn-shape">
+                <path d="M 100 20 
+                         Q 90 30, 85 50
+                         L 80 80
+                         Q 75 100, 70 120
+                         L 65 150
+                         Q 60 180, 65 200
+                         L 70 230
+                         Q 75 260, 80 280
+                         M 100 20
+                         Q 110 30, 115 50
+                         L 120 80
+                         Q 125 100, 130 120
+                         L 135 150
+                         Q 140 180, 135 200
+                         L 130 230
+                         Q 125 260, 120 280
+                         M 100 20
+                         L 105 5
+                         M 95 40
+                         Q 85 42, 80 45
+                         M 105 40
+                         Q 115 42, 120 45" 
+                      stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <!-- 魔法频率波形 -->
+        <div class="frequency-waves">
+            <div class="wave wave-left">
+                <svg width="100%" height="100%" viewBox="0 0 300 80">
+                    <path d="M 0 40 Q 30 20, 60 40 T 120 40 T 180 40 T 240 40 T 300 40" 
+                          class="wave-line"/>
+                </svg>
+            </div>
+            <div class="wave wave-right">
+                <svg width="100%" height="100%" viewBox="0 0 300 80">
+                    <path d="M 0 40 Q 30 20, 60 40 T 120 40 T 180 40 T 240 40 T 300 40" 
+                          class="wave-line"/>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- 标题 -->
+        <div class="title-container">
+            <div class="main-title">
+                镜<span class="mirror">中</span>的我<br>
+                <span style="letter-spacing: 12px;">不是我</span>
+            </div>
+            <div class="subtitle">WHO AM I</div>
+        </div>
+        
+        <!-- 描述文字 -->
+        <div class="description">
+            当魔法镜片显示出<strong>两个频率</strong>，<br>
+            一个清晰，一个正在消失...<br>
+            <div class="question">谁才有资格存在？</div>
+        </div>
+        
+        <!-- 魔法粒子 -->
+        <div class="magic-particle particle-1"></div>
+        <div class="magic-particle particle-2"></div>
+        <div class="magic-particle particle-3"></div>
+        <div class="magic-particle particle-4"></div>
+        <div class="magic-particle particle-5"></div>
+        <div class="magic-particle particle-6"></div>
+        
+        <!-- 底部魔法阵 -->
+        <div class="magic-circle"></div>
+    </div>
+</body>
+</html>
